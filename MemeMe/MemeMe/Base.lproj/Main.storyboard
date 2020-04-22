@@ -186,6 +186,35 @@
             </objects>
             <point key="canvasLocation" x="-413.04347826086962" y="316.07142857142856"/>
         </scene>
+        <!--Meme Detail View Controller-->
+        <scene sceneID="tTv-Wm-2Gn">
+            <objects>
+                <viewController storyboardIdentifier="MemeDetailViewController" id="MTd-eo-Tcq" customClass="MemeDetailViewController" customModule="MemeMe" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="oa1-zJ-a8T">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="xvw-at-gxR">
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="xvw-at-gxR" firstAttribute="top" secondItem="Fn7-28-Xyv" secondAttribute="top" id="2UE-eg-Jm4"/>
+                            <constraint firstItem="Fn7-28-Xyv" firstAttribute="bottom" secondItem="xvw-at-gxR" secondAttribute="bottom" id="LgU-Gi-l7c"/>
+                            <constraint firstItem="Fn7-28-Xyv" firstAttribute="trailing" secondItem="xvw-at-gxR" secondAttribute="trailing" id="VKn-Qy-Ice"/>
+                            <constraint firstItem="xvw-at-gxR" firstAttribute="leading" secondItem="Fn7-28-Xyv" secondAttribute="leading" id="YHx-Tr-BPV"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Fn7-28-Xyv"/>
+                    </view>
+                    <connections>
+                        <outlet property="memeImageView" destination="xvw-at-gxR" id="qsj-Ry-4ve"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Kca-io-fMj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1086" y="317"/>
+        </scene>
         <!--Create Meme View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
@@ -295,7 +324,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="p1e-6o-9sD"/>
+        <segue reference="l4g-sJ-Z2s"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="camera" catalog="system" width="128" height="96"/>

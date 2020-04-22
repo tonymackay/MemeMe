@@ -45,4 +45,10 @@ class MemesTableViewController: UITableViewController {
         cell.topLabel.text = memes[indexPath.row].topText + "..." + memes[indexPath.row].bottomText
         return cell
     }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let detailController = self.storyboard!.instantiateViewController(withIdentifier: MemeDetailViewController.identifier) as! MemeDetailViewController
+        detailController.meme = memes[indexPath.row]
+        self.navigationController!.pushViewController(detailController, animated: true)
+    }
 }
