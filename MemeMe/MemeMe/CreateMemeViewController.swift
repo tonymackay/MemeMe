@@ -32,10 +32,11 @@ class CreateMemeViewController: UIViewController, UIImagePickerControllerDelegat
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.shareButton.isEnabled = false
         setupTextFieldStyle(toTextField: topTextField, defaultText: "TOP", delegate: topTextFieldDelegate)
         setupTextFieldStyle(toTextField: bottomTextField, defaultText: "BOTTOM", delegate: bottomDelegatetextField)
         
-        closeMemeEditor()
+        enableButtons(false)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -72,19 +73,22 @@ class CreateMemeViewController: UIViewController, UIImagePickerControllerDelegat
     }
     
     @IBAction func shareMeme(_ sender: Any) {
+        
         let memedImage = generateMemedImage()
         let activityController = UIActivityViewController(activityItems: [memedImage], applicationActivities: nil)
+        
         activityController.completionWithItemsHandler = { (activityType, completed, returnedItems, error) in
             if completed {
-                print("clear the view")
+                print("completed saving meme")
                 
                 let meme = Meme(topText: self.topTextField.text!, bottomText: self.bottomTextField.text!, originalImage: self.imagePickerView.image!, memedImage: memedImage)
                 
+                // Add it to the memes array in the Application Delegate
                 let object = UIApplication.shared.delegate
                 let appDelegate = object as! AppDelegate
                 appDelegate.memes.append(meme)
+                self.dismiss(animated: true, completion: nil)
                 
-                self.closeMemeEditor()
             } else {
                 print("canceled")
             }
@@ -92,12 +96,12 @@ class CreateMemeViewController: UIViewController, UIImagePickerControllerDelegat
                 print("error while sharing: \(shareError.localizedDescription)")
             }
         }
-        
+
         self.present(activityController, animated: true, completion: nil)
     }
     
     @IBAction func cancel(_ sender: Any) {
-        closeMemeEditor()
+        self.dismiss(animated: true, completion: nil)
     }
     
     func setupTextFieldStyle(toTextField textField: UITextField, defaultText: String, delegate: TextFieldDelegate) {
@@ -118,26 +122,15 @@ class CreateMemeViewController: UIViewController, UIImagePickerControllerDelegat
         
         if let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             imagePickerView.image = image
-            openMemeEditor()
+            enableButtons(true)
         }
         dismiss(animated: true, completion: nil)
     }
     
-    func openMemeEditor() {
-        topTextField.isEnabled = true
-        bottomTextField.isEnabled = true
-        shareButton.isEnabled = true
-        cancelButton.isEnabled = true
-    }
-    
-    func closeMemeEditor() {
-        topTextField.text = "TOP"
-        topTextField.isEnabled = false
-        bottomTextField.text = "BOTTOM"
-        bottomTextField.isEnabled = false
-        shareButton.isEnabled = false
-        cancelButton.isEnabled = false
-        imagePickerView.image = nil
+    func enableButtons(_ enable: Bool) {
+        topTextField.isEnabled = enable
+        bottomTextField.isEnabled = enable
+        shareButton.isEnabled = enable
     }
     
     @objc func keyboardWillShow(_ notification:Notification) {
@@ -157,17 +150,13 @@ class CreateMemeViewController: UIViewController, UIImagePickerControllerDelegat
     }
     
     func generateMemedImage() -> UIImage {
-
         hideToolbars(true)
-        
         // Render view to an image
         UIGraphicsBeginImageContext(self.view.frame.size)
         view.drawHierarchy(in: self.view.frame, afterScreenUpdates: true)
         let memedImage:UIImage = UIGraphicsGetImageFromCurrentImageContext()!
         UIGraphicsEndImageContext()
-        
         hideToolbars(false)
-        
         return memedImage
     }
     
