@@ -1,5 +1,5 @@
 //
-//  MemeTableViewCell.swift
+//  MemeCollectionViewCell.swift
 //  MemeMe
 //
 //  Created by Tony Mackay on 22/04/2020.
@@ -8,10 +8,7 @@
 
 import UIKit
 
-class MemeTableViewCell: UITableViewCell {
+class MemeCollectionViewCell: UICollectionViewCell {
     
-    @IBOutlet weak var topLabel: UILabel!
     @IBOutlet weak var memeImageView: UIImageView!
-    
-    
 }
