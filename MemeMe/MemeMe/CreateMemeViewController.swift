@@ -80,8 +80,6 @@ class CreateMemeViewController: UIViewController, UIImagePickerControllerDelegat
                 
                 let meme = Meme(topText: self.topTextField.text!, bottomText: self.bottomTextField.text!, originalImage: self.imagePickerView.image!, memedImage: memedImage)
                 
-                meme.save()
-                
                 self.closeMemeEditor()
             } else {
                 print("canceled")
